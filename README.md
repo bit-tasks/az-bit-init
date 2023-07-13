@@ -6,7 +6,8 @@
 Steps to create custom tasks in different CI/CD platforms.
 
 ### AzureDevOps Task
-[AzureDevOps organization for testing (bit-tasks)](https://dev.azure.com/bit-tasks/)
+[AzureDevOps Demo Organization](https://dev.azure.com/bit-tasks/)
+[AzureDevOps Publisher Profile](https://marketplace.visualstudio.com/manage/publishers/bitdev)
 
 Go to the task directory and build using NCC compiler. For example;
 ```
