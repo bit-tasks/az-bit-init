@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "bit-tasks",
     "name": "Bit Tasks",
-    "version": "0.0.9",
+    "version": "0.0.13",
     "publisher": "bitdev",
     "branding": "#2a00bb",
     "targets": [
@@ -20,6 +20,9 @@
     "files": [
         {
             "path": "init"
+        },
+        {
+            "path": "verify"
         }
     ],
     "contributions": [
@@ -31,6 +34,16 @@
             ],
             "properties": {
                 "name": "init"
+            }
+        },
+        {
+            "id": "bit-verify",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "verify"
             }
         }
     ]

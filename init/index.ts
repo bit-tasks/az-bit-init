@@ -4,6 +4,7 @@ import runInit from './scripts/init';
 async function run() {
     try {
         const wsdir: string | undefined = task.getInput('wsdir', false) || './';
+        task.setVariable('wsdir', wsdir);
         const bitToken = process.env.BIT_TOKEN;
         if (!bitToken) {
             task.setResult(task.TaskResult.Failed, 'BIT_TOKEN environment variable is not set');
