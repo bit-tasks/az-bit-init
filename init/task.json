@@ -1,0 +1,31 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
+    "id": "53E94C9A-0236-4D79-A7F7-968E97E4A2E4",
+    "name": "bit-init",
+    "friendlyName": "Initialize Bit",
+    "description": "Initialize Bit for CI/CD Pipelines",
+    "helpMarkDown": "",
+    "category": "Utility",
+    "author": "teambit",
+    "version": {
+        "Major": 0,
+        "Minor": 1,
+        "Patch": 7
+    },
+    "instanceNameFormat": "Echo $(samplestring)",
+    "inputs": [
+        {
+            "name": "wsdir",
+            "type": "string",
+            "label": "Workspace Directory",
+            "defaultValue": "./",
+            "required": true,
+            "helpMarkDown": "Workspace Directory"
+        }
+    ],
+    "execution": {
+        "Node": {
+            "target": "dist/index.js"
+        }
+    }
+    }

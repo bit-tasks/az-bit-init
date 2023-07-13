@@ -1,0 +1,4 @@
+node_modules
+bitdev.bit-tasks-*.*
+dist
+.DS_Store

@@ -1,0 +1,37 @@
+{
+    "manifestVersion": 1,
+    "id": "bit-tasks",
+    "name": "Bit Tasks",
+    "version": "0.0.9",
+    "publisher": "bitdev",
+    "branding": "#2a00bb",
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],    
+    "description": "Initialize Bit for CI/CD Pipelines",
+    "categories": [
+        "Azure Pipelines"
+    ],
+    "icons": {
+        "default": "icon.png"
+    },
+    "files": [
+        {
+            "path": "init"
+        }
+    ],
+    "contributions": [
+        {
+            "id": "bit-init",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "init"
+            }
+        }
+    ]
+}
