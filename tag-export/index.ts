@@ -1,5 +1,5 @@
 import task = require('azure-pipelines-task-lib');
-import runScript from './scripts/verify'; 
+import runScript from './scripts/tag-export'; 
 
 async function run() {
     try {

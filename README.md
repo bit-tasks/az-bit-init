@@ -18,7 +18,7 @@ git commit -m "Update task"
 
 From home directory
 ```
-tfx extension publish -t <PERSONAL_ACCESS_TOKEN> --shared-with <ORG_NAME>
+tfx extension publish -t <PERSONAL_ACCESS_TOKEN>
 ```
 
 **Note:** --shared-with is needed until the extension is publically shared
@@ -32,7 +32,6 @@ npm i -g tfx-cli
 
 For each new task, create a GUID using;
 - MacOS - uuidgen
-- Windows - 
 
 ### References
 - [Extension manifest reference (vss-extension.json)](https://learn.microsoft.com/en-us/azure/devops/extend/develop/manifest?view=azure-devops)

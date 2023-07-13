@@ -2,27 +2,65 @@
     "manifestVersion": 1,
     "id": "bit-tasks",
     "name": "Bit Tasks",
-    "version": "0.0.13",
+    "version": "0.0.18",
     "publisher": "bitdev",
-    "branding": "#2a00bb",
+    "branding": {
+        "color": "#2a00bb",
+        "theme": "dark"
+    },
+    "public": true,
+    "galleryFlags": [
+        "Preview"
+    ],
+    "links": {
+        "home": {
+            "uri": "https://bit.dev"
+        },
+        "repository": {
+            "uri": "https://github.com/bit-tasks/azure-pipelines"
+        }
+    },
+    "repository": {
+        "type": "git",
+        "uri": "https://github.com/bit-tasks/azure-pipelines"
+    },
+    "content": {
+        "details": {
+            "path": "overview.md"
+        },
+        "license": {
+            "path": "license-terms.md"
+        }
+    },
     "targets": [
         {
             "id": "Microsoft.VisualStudio.Services"
         }
     ],    
-    "description": "Initialize Bit for CI/CD Pipelines",
+    "description": "Bit tasks for Git repositories supporting common CI/CD workflows",
     "categories": [
         "Azure Pipelines"
     ],
     "icons": {
         "default": "icon.png"
     },
+    "screenshots": [
+        {
+            "path": "screenshots/screen1.png"
+        },
+        {
+            "path": "screenshots/screen2.png"
+        }
+    ],
     "files": [
         {
             "path": "init"
         },
         {
             "path": "verify"
+        },
+        {
+            "path": "tag-export"
         }
     ],
     "contributions": [
@@ -44,6 +82,16 @@
             ],
             "properties": {
                 "name": "verify"
+            }
+        },
+        {
+            "id": "bit-tag-export",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "tag-export"
             }
         }
     ]
