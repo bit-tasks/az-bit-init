@@ -27,6 +27,12 @@ Bit tasks for Git repositories supporting common CI/CD workflows.
     wsdir: './'
 ```
 
-### Pull-Request (Coming Soon)
+### Pull-Request
+
+```
+- task: bit-pull-request@0
+  inputs: # Optional (Default Bit Init `wsdir`)
+    wsdir: './'
+```
 
 ### Commit Bitmap (Coming Soon)

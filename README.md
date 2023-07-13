@@ -31,7 +31,8 @@ npm i -g tfx-cli
 ```
 
 For each new task, create a GUID using;
-- MacOS - uuidgen
+- MacOS/Linux - uuidgen
+- Windows (PowerShell) - New-Guid
 
 ### References
 - [Extension manifest reference (vss-extension.json)](https://learn.microsoft.com/en-us/azure/devops/extend/develop/manifest?view=azure-devops)
