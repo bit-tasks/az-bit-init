@@ -1,10 +1,11 @@
+# Azure Pipeline Tasks
+[View in MarketPlace](https://marketplace.visualstudio.com/items?itemName=bitdev.bit-tasks)
+
 ## Contributor Guide
 
 Steps to create custom tasks in different CI/CD platforms.
 
 ### AzureDevOps Task
-
-[View in MarketPlace](https://marketplace.visualstudio.com/items?itemName=bitdev.bit-tasks)
 [AzureDevOps organization for testing (bit-tasks)](https://dev.azure.com/bit-tasks/)
 
 Go to the task directory and build using NCC compiler. For example;
@@ -14,7 +15,7 @@ npm run build
 git commit -m "Update task"
 ```
 
-// From home directory
+From home directory
 ```
 tfx extension publish -t <PERSONAL_ACCESS_TOKEN> --shared-with <ORG_NAME>
 ```
