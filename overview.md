@@ -1,4 +1,4 @@
-# Bit Tasks for Azur DevOps Pipelines
+# Bit Tasks for Azure DevOps Pipelines
 Bit tasks for Git repositories supporting common CI/CD workflows.
 
 ## List of Tasks
