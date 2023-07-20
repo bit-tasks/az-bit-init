@@ -1,13 +1,13 @@
 # Azure Pipeline Tasks
-[View in MarketPlace](https://marketplace.visualstudio.com/items?itemName=bitdev.bit-tasks)
+[View in Azure MarketPlace](https://marketplace.visualstudio.com/items?itemName=bitdev.bit-tasks)
 
 ## Contributor Guide
 
 Steps to create custom tasks in different CI/CD platforms.
 
 ### AzureDevOps Task
-[AzureDevOps Demo Organization](https://dev.azure.com/bit-tasks/)
-[AzureDevOps Publisher Profile](https://marketplace.visualstudio.com/manage/publishers/bitdev)
+- [AzureDevOps Demo Organization](https://dev.azure.com/bit-tasks/)
+- [AzureDevOps Publisher Profile](https://marketplace.visualstudio.com/manage/publishers/bitdev)
 
 Go to the task directory and build using NCC compiler. For example;
 ```
