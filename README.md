@@ -1,4 +1,4 @@
-# Azure Pipeline Tasks
+# Azure DevOps Tasks
 [View in Azure MarketPlace](https://marketplace.visualstudio.com/items?itemName=bitdev.bit-tasks)
 
 ## Contributor Guide
