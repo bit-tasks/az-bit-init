@@ -17,12 +17,12 @@
             "uri": "https://bit.dev"
         },
         "repository": {
-            "uri": "https://github.com/bit-tasks/azure-pipelines"
+            "uri": "https://github.com/bit-tasks/azure-devops-tasks"
         }
     },
     "repository": {
         "type": "git",
-        "uri": "https://github.com/bit-tasks/azure-pipelines"
+        "uri": "https://github.com/bit-tasks/azure-devops-tasks"
     },
     "content": {
         "details": {
