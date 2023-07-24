@@ -64,6 +64,9 @@
         },
         {
             "path": "pull-request"
+        },
+        {
+            "path": "branch-lane"
         }
     ],
     "contributions": [
@@ -105,6 +108,16 @@
             ],
             "properties": {
                 "name": "pull-request"
+            }
+        },
+        {
+            "id": "bit-branch-lane",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "branch-lane"
             }
         }
     ]

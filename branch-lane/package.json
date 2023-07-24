@@ -1,7 +1,7 @@
 {
-  "name": "bit-pull-request",
+  "name": "bit-branch-lane",
   "version": "1.0.0",
-  "description": "Bit Pull Request",
+  "description": "Bit Branch Lane",
   "main": "dist/index.js",
   "scripts": {
     "start": "export wsdir='./' && node dist/index.js",

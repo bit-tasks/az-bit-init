@@ -1,18 +1,18 @@
 {
     "$schema": "https://raw.githubusercontent.com/Microsoft/azure-pipelines-task-lib/master/tasks.schema.json",
-    "id": "4E3547B1-9BEA-4DE1-A468-A829705620BB",
-    "name": "bit-pull-request",
-    "friendlyName": "Bit Pull Request",
-    "description": "Build pull request and update lane task for CI/CD",
+    "id": "056A761D-791C-4996-852F-18CECDCBC9DA",
+    "name": "bit-branch-lane",
+    "friendlyName": "Bit Branch Lane",
+    "description": "Create Bit lane for each Git branch task for CI/CD",
     "helpMarkDown": "",
     "category": "Utility",
     "author": "teambit",
     "version": {
         "Major": 0,
         "Minor": 1,
-        "Patch": 5
+        "Patch": 1
     },
-    "instanceNameFormat": "Bit Pull Request",
+    "instanceNameFormat": "Bit Branch Lane",
     "inputs": [
         {
             "name": "wsdir",

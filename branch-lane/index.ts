@@ -1,5 +1,5 @@
 import task = require("azure-pipelines-task-lib");
-import runScript from "./scripts/pull-request";
+import runScript from "./scripts/branch-lane";
 
 async function run() {
   try {
@@ -7,11 +7,11 @@ async function run() {
       task.getInput("wsdir", false) || task.getVariable("wsdir") || "./";
     const org = task.getVariable("org");
     const scope = task.getVariable("scope");
-    const prNumber = task.getVariable("System.PullRequest.PullRequestId");
+    const branchName = task.getVariable("Build.SourceBranchName");
 
-    if (!prNumber) {
-        task.setResult(task.TaskResult.Failed, "Pull Request number is not found");
-        throw new Error("Pull request number is not found");
+    if (!branchName) {
+        task.setResult(task.TaskResult.Failed, "Branch name is not found");
+        throw new Error("Branch not found");
     }
   
     if (!org) {
@@ -24,10 +24,9 @@ async function run() {
         throw new Error("Scope not found");
     }
         
-    const laneName = `pr-${prNumber?.toString()}` || "pr-testlane";
-    const laneLink = `https://new.bit.cloud/${org}/${scope}/~lane/${laneName}`;
+    const laneLink = `https://new.bit.cloud/${org}/${scope}/~lane/${branchName}`;
 
-    runScript(laneName, org, scope, wsdir);
+    runScript(branchName, org, scope, wsdir);
     task.setResult(task.TaskResult.Succeeded, `Successful: Check Lane: ${laneLink}`)
   } catch (err: any) {
     task.setResult(task.TaskResult.Failed, err.message);
