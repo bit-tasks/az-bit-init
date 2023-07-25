@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "bit-tasks",
     "name": "Bit Tasks",
-    "version": "0.0.25",
+    "version": "0.0.26",
     "publisher": "bitdev",
     "branding": {
         "color": "#060414",
@@ -67,6 +67,9 @@
         },
         {
             "path": "branch-lane"
+        },
+        {
+            "path": "commit-bitmap"
         }
     ],
     "contributions": [
@@ -118,6 +121,16 @@
             ],
             "properties": {
                 "name": "branch-lane"
+            }
+        },
+        {
+            "id": "bit-commit-bitmap",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "commit-bitmap"
             }
         }
     ]
