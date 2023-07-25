@@ -16,6 +16,8 @@ npm run build
 git commit -m "Update task"
 ```
 
+**Note:** After building the task, delete the node_modules directory. Otherwise it slows down the deployment.
+
 From home directory
 ```
 tfx extension publish -t <PERSONAL_ACCESS_TOKEN>

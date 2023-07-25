@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "bit-tasks",
     "name": "Bit Tasks",
-    "version": "0.0.22",
+    "version": "0.0.25",
     "publisher": "bitdev",
     "branding": {
         "color": "#060414",

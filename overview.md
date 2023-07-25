@@ -36,3 +36,12 @@ Bit tasks for Git repositories supporting common CI/CD workflows.
 ```
 
 ### Commit Bitmap (Coming Soon)
+
+
+### Branch-Lane
+
+```
+- task: bit-branch-lane@0
+  inputs: # Optional (Default Bit Init `wsdir`)
+    wsdir: './'
+```
