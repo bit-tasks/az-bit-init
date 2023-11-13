@@ -1,19 +1,23 @@
-import task = require('azure-pipelines-task-lib');
-import runInit from './scripts/init'; 
+import task = require("azure-pipelines-task-lib");
+import runInit from "./scripts/init";
 
 async function run() {
-    try {
-        const wsdir: string | undefined = task.getInput('wsdir', false) || './';
-        const bitToken = process.env.BIT_CONFIG_USER_TOKEN;
-        if (!bitToken) {
-            task.setResult(task.TaskResult.Failed, 'BIT_CONFIG_USER_TOKEN environment variable is not set');
-            return;
-        }
-        runInit(bitToken, wsdir);
+  try {
+    const wsdir: string | undefined = task.getInput("wsdir", false) || "./";
+    if (
+      !process.env.BIT_CONFIG_USER_TOKEN &&
+      !process.env.BIT_CLOUD_ACCESS_TOKEN
+    ) {
+      task.setResult(
+        task.TaskResult.Failed,
+        "Neither BIT_CONFIG_USER_TOKEN nor BIT_CLOUD_ACCESS_TOKEN environment variable is set. At least one of them is required!"
+      );
+      return;
     }
-    catch (err: any) {
-        task.setResult(task.TaskResult.Failed, err.message);
-    }
+    runInit(wsdir);
+  } catch (err: any) {
+    task.setResult(task.TaskResult.Failed, err.message);
+  }
 }
 
 run();
