@@ -20,6 +20,13 @@
             "label": "Workspace Directory",
             "required": false,
             "helpMarkDown": "Workspace Directory"
+        },
+        {
+            "name": "persist",
+            "type": "string",
+            "label": "Persist Flag",
+            "required": false,
+            "helpMarkDown": "Persist Flag"
         }
     ],
     "execution": {

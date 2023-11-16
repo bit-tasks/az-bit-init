@@ -20,6 +20,13 @@
             "label": "Workspace Directory",
             "required": false,
             "helpMarkDown": "Workspace Directory"
+        },
+        {
+            "name": "skipbuild",
+            "type": "string",
+            "label": "Skip Bit Build",
+            "required": false,
+            "helpMarkDown": "Skip Bit Build"
         }
     ],
     "execution": {

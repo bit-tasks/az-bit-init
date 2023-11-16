@@ -27,17 +27,49 @@ steps:
 ### Bit Verify
 
 ```
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  GIT_USER_NAME: ${{ secrets.GIT_USER_NAME }}
+  GIT_USER_EMAIL: ${{ secrets.GIT_USER_EMAIL }}
+  BIT_CLOUD_ACCESS_TOKEN: ${{ secrets.BIT_CLOUD_ACCESS_TOKEN }} # Either BIT_CLOUD_ACCESS_TOKEN or BIT_CONFIG_USER_TOKEN is needed. Not both.
+  BIT_CONFIG_USER_TOKEN: ${{ secrets.BIT_CONFIG_USER_TOKEN }}
+
+steps:
+- task: bit-init@0
+  inputs:
+    wsdir: './' # Optional
 - task: bit-verify@0
-  inputs: 
-    wsdir: './' # Optional (Default Bit Init `wsdir`)
+  inputs:
+    skipbuild: 'false' # Optional
 ```
 
 ### Bit Tag-Export
 
 ```
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  GIT_USER_NAME: ${{ secrets.GIT_USER_NAME }}
+  GIT_USER_EMAIL: ${{ secrets.GIT_USER_EMAIL }}
+  BIT_CLOUD_ACCESS_TOKEN: ${{ secrets.BIT_CLOUD_ACCESS_TOKEN }} # Either BIT_CLOUD_ACCESS_TOKEN or BIT_CONFIG_USER_TOKEN is needed. Not both.
+  BIT_CONFIG_USER_TOKEN: ${{ secrets.BIT_CONFIG_USER_TOKEN }}
+
+steps:
+- task: bit-init@0
+  inputs:
+    wsdir: './' # Optional
 - task: bit-tag-export@0
-  inputs: 
-    wsdir: './' # Optional (Default Bit Init `wsdir`)
+  inputs:
+    persist: 'false' # Optional: For soft tagging workflow use. It appends --persist flag to bit tag command
 ```
 
 ### Pull-Request
