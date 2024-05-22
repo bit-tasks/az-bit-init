@@ -14,6 +14,13 @@ async function run() {
       );
       return;
     }
+    // Initialize environment variables for bit cli
+    process.env.BIT_CONFIG_ANALYTICS_REPORTING = "false";
+    process.env.BIT_CONFIG_ANONYMOUS_REPORTING = "false";
+    process.env.BIT_CONFIG_INTERACTIVE = "false";
+    process.env.BIT_DISABLE_CONSOLE = "true";
+    process.env.BIT_DISABLE_SPINNER = "true";
+
     runInit(wsdir);
   } catch (err: any) {
     task.setResult(task.TaskResult.Failed, err.message);

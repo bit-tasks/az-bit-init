@@ -1,6 +1,11 @@
 # Bit Tasks for Azure DevOps Pipelines
 Bit tasks for Git repositories supporting common CI/CD workflows.
 
+Follow the below steps to install
+1. Click [Get it free](https://marketplace.visualstudio.com/acquisition?itemName=bitdev.bit-tasks) link.
+2. Next, you may need [relevant permission](https://learn.microsoft.com/en-us/azure/devops/marketplace/grant-permissions?view=azure-devops) to install the extension. For more information follow Azure DevOps guide [Install extensions](https://learn.microsoft.com/en-us/azure/devops/marketplace/install-extension?view=azure-devops&tabs=browser)
+3. After installing you can select all Bit Tasks from the Tasks Assistant sidebar.
+
 ## List of Tasks
 
 ### Bit Init

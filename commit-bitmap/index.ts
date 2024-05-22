@@ -19,6 +19,13 @@ async function run() {
       throw new Error("Git user email not found");
     }
 
+    // Initialize environment variables for bit cli
+    process.env.BIT_CONFIG_ANALYTICS_REPORTING = "false";
+    process.env.BIT_CONFIG_ANONYMOUS_REPORTING = "false";
+    process.env.BIT_CONFIG_INTERACTIVE = "false";
+    process.env.BIT_DISABLE_CONSOLE = "true";
+    process.env.BIT_DISABLE_SPINNER = "true";
+
     runScript(gitUserName, gitUserEmail, wsdir, skipPush);
     task.setResult(task.TaskResult.Succeeded, `Commit succesful!`);
   } catch (err: any) {

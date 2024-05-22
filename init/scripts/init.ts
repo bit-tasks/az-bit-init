@@ -38,12 +38,7 @@ const run = async (wsdir: string): Promise<void> => {
 
   // sets path for current step
   toolLib.prependPath(path.join("/", "home", "vsts", "bin"));
-
-  // config bit/npm for CI/CD
-  execSync("bit config set analytics_reporting false", { shell: "/bin/bash" });
-  execSync("bit config set anonymous_reporting false", { shell: "/bin/bash" });
-  execSync("bit config set interactive false", { shell: "/bin/bash" });
-
+  
   execSync("bit install", { cwd: wsdir, shell: "/bin/bash" });
 };
 
