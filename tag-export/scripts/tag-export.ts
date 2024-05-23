@@ -35,11 +35,11 @@ const createTagMessageText = (): string => {
       messageText = prTitle;
     } else if (prNumber) {
       const commitsResponse = execSync(
-        `az repos pr list Commits --organization ${orgUrl} --project ${project} --repository ${repo} --pullRequestId ${prNumber} --top 1 --query '[0]' --output json`,
+        `az repos pr list --organization ${orgUrl} --project ${project} --repository ${repo} --pull-request-id ${prNumber} --top 1 --query '[0]' --output json`,
         { encoding: "utf-8" }
       );
 
-      const lastCommitMessage = JSON.parse(commitsResponse).comments[0].content;
+      const lastCommitMessage = JSON.parse(commitsResponse).comment;
       tl.debug(`Last commit message: ${lastCommitMessage}`);
 
       messageText = lastCommitMessage;
