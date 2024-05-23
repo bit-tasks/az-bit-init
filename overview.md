@@ -5,6 +5,7 @@ Follow the below steps to install
 1. Click [Get it free](https://marketplace.visualstudio.com/acquisition?itemName=bitdev.bit-tasks) link.
 2. Next, you may need [relevant permission](https://learn.microsoft.com/en-us/azure/devops/marketplace/grant-permissions?view=azure-devops) to install the extension. For more information follow Azure DevOps guide [Install extensions](https://learn.microsoft.com/en-us/azure/devops/marketplace/install-extension?view=azure-devops&tabs=browser)
 3. After installing you can select all Bit Tasks from the Tasks Assistant sidebar.
+4. Ensure that all required variables are set.
 
 ## List of Tasks
 
@@ -30,7 +31,7 @@ env:
 
 steps:
 - task: bit-init@0
-   inputs:
+  inputs:
     wsdir: './' # Optional
 
 - task: bit-pull-request@0
@@ -50,10 +51,10 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-env:
+variables:
   GIT_USER_NAME: ${{ secrets.GIT_USER_NAME }}
   GIT_USER_EMAIL: ${{ secrets.GIT_USER_EMAIL }}
-  AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }} // Need git repository write permission
+  AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }} # Need git repository write permission
   BIT_CLOUD_ACCESS_TOKEN: ${{ secrets.BIT_CLOUD_ACCESS_TOKEN }}
 
 steps:
@@ -79,7 +80,7 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-env:
+variables:
   GIT_USER_NAME: ${{ secrets.GIT_USER_NAME }}
   GIT_USER_EMAIL: ${{ secrets.GIT_USER_EMAIL }}
   AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }} // Need git repository write permission
@@ -109,7 +110,7 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-env:
+variables:
   GIT_USER_NAME: ${{ secrets.GIT_USER_NAME }}
   GIT_USER_EMAIL: ${{ secrets.GIT_USER_EMAIL }}
   AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }} # Need git repository write permission
