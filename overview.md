@@ -8,41 +8,82 @@ Follow the below steps to install
 
 ## List of Tasks
 
-### Bit Init
+### Pull-Request Build Example
+Following pipeline task is used to verify the `Pull Requests`.
 
 ```
-trigger:
-- main
+name: Bit PullRequest Build
+
+pr:
+  branches:
+    include:
+    - main
 
 pool:
   vmImage: ubuntu-latest
 
-variables:
+env:
   GIT_USER_NAME: ${{ secrets.GIT_USER_NAME }}
   GIT_USER_EMAIL: ${{ secrets.GIT_USER_EMAIL }}
-  BIT_CLOUD_ACCESS_TOKEN: ${{ secrets.BIT_CLOUD_ACCESS_TOKEN }} # Either BIT_CLOUD_ACCESS_TOKEN or BIT_CONFIG_USER_TOKEN is needed. Not both.
-  BIT_CONFIG_USER_TOKEN: ${{ secrets.BIT_CONFIG_USER_TOKEN }}
+  AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }} // Need git repository write permission
+  BIT_CLOUD_ACCESS_TOKEN: ${{ secrets.BIT_CLOUD_ACCESS_TOKEN }}
+
+steps:
+- task: bit-init@0
+   inputs:
+    wsdir: './' # Optional
+
+- task: bit-pull-request@0
+```
+
+### Bit Tag-Export and Commit Back Example
+Following pipeline task is used to Tag and Export Bit components after the `Pull Request` is merged and also `Commit` back the newest versions of the tagged components into the Git repository.
+
+```
+name: Tag and Export and Commit Back
+
+trigger:
+  branches:
+    include:
+    - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+env:
+  GIT_USER_NAME: ${{ secrets.GIT_USER_NAME }}
+  GIT_USER_EMAIL: ${{ secrets.GIT_USER_EMAIL }}
+  AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }} // Need git repository write permission
+  BIT_CLOUD_ACCESS_TOKEN: ${{ secrets.BIT_CLOUD_ACCESS_TOKEN }}
 
 steps:
 - task: bit-init@0
   inputs:
     wsdir: './' # Optional
+
+- task: bit-tag-export@0
+  inputs:
+    persist: 'false' # Optional: For soft tagging workflow use. It appends --persist flag to bit tag command
+
+- task: bit-commit-bitmap@0
 ```
 
-### Bit Verify
-
+### Bit Verify (Optional)
+Setup this task if you want to build Bit components in a particular branch
 ```
+name: Bit Verify
+
 trigger:
-- main
+- my-branch
 
 pool:
   vmImage: ubuntu-latest
 
-variables:
+env:
   GIT_USER_NAME: ${{ secrets.GIT_USER_NAME }}
   GIT_USER_EMAIL: ${{ secrets.GIT_USER_EMAIL }}
-  BIT_CLOUD_ACCESS_TOKEN: ${{ secrets.BIT_CLOUD_ACCESS_TOKEN }} # Either BIT_CLOUD_ACCESS_TOKEN or BIT_CONFIG_USER_TOKEN is needed. Not both.
-  BIT_CONFIG_USER_TOKEN: ${{ secrets.BIT_CONFIG_USER_TOKEN }}
+  AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }} // Need git repository write permission
+  BIT_CLOUD_ACCESS_TOKEN: ${{ secrets.BIT_CLOUD_ACCESS_TOKEN }}
 
 steps:
 - task: bit-init@0
@@ -53,65 +94,30 @@ steps:
     skipbuild: 'false' # Optional
 ```
 
-### Bit Tag-Export
-
+### Bit Branch Lane (Optional)
+Setup this task if you want to create a Bit lane for each Git branch
 ```
+name: Bit Branch Lane
+
 trigger:
-- main
+  branches:
+    include:
+      - '*'
+    exclude:
+      - main
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'ubuntu-latest'
 
-variables:
+env:
   GIT_USER_NAME: ${{ secrets.GIT_USER_NAME }}
   GIT_USER_EMAIL: ${{ secrets.GIT_USER_EMAIL }}
-  BIT_CLOUD_ACCESS_TOKEN: ${{ secrets.BIT_CLOUD_ACCESS_TOKEN }} # Either BIT_CLOUD_ACCESS_TOKEN or BIT_CONFIG_USER_TOKEN is needed. Not both.
-  BIT_CONFIG_USER_TOKEN: ${{ secrets.BIT_CONFIG_USER_TOKEN }}
+  AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }} # Need git repository write permission
+  BIT_CLOUD_ACCESS_TOKEN: ${{ secrets.BIT_CLOUD_ACCESS_TOKEN }}
 
 steps:
 - task: bit-init@0
   inputs:
     wsdir: './' # Optional
-- task: bit-tag-export@0
-  inputs:
-    persist: 'false' # Optional: For soft tagging workflow use. It appends --persist flag to bit tag command
-```
-
-### Pull-Request
-
-```
-- task: bit-pull-request@0
-  inputs: 
-    wsdir: './' # Optional (Default Bit Init `wsdir`)
-```
-
-### Commit Bitmap
-
-```
-- task: bit-commit-bitmap@0
-  inputs: 
-    wsdir: './' # Optional (Default Bit Init `wsdir`)
-    gitusername: '<GIT USER NAME> # Required Github user name to commit back .bitmap file to the repository.
-    gituseremail: '<GIT USER EMAIL> # Required Github user email to commit back .bitmap file to the repository.
-```
-
-### Branch-Lane
-
-```
 - task: bit-branch-lane@0
-  inputs:
-    wsdir: './' # Optional (Default Bit Init `wsdir`)
-```
-
-### Dependency-Update
-
-```
-- task: bit-dependency-update@0
-  inputs:
-    wsdir: './' # Optional (Default Bit Init `wsdir`)
-    allow: 'all' # Optional (Default `all`) Allow different types of dependencies. Options `all`, `external-dependencies`, `workspace-components`, envs. You can also use a combination of one or two values, e.g. external-dependencies, workspace-components.
-    branch: 'main' # Optional (Default `main`) Branch to check for dependency updates.
-    gitusername: '<GIT USER NAME> # Required Github user name to commit back .bitmap file to the repository.
-    gituseremail: '<GIT USER EMAIL> # Required Github user email to commit back .bitmap file to the repository.
-
 ```

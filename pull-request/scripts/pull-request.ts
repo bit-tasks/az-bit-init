@@ -1,14 +1,15 @@
 import { execSync } from "child_process";
 
 const run = async (
-  lane: string,
+  laneName: string,
+  laneLink: string,
   org: string,
   scope: string,
   wsdir: string
 ): Promise<void> => {
   try {
     execSync(
-      `bit lane remove ${org}.${scope}/${lane} --remote --silent --force`,
+      `bit lane remove ${org}.${scope}/${laneName} --remote --silent --force`,
       { cwd: wsdir, shell: "/bin/bash" }
     );
   } catch (error) {
@@ -37,14 +38,14 @@ const run = async (
     );
 
     execSync("bit status --strict", { cwd: wsdir, shell: "/bin/bash" });
-    execSync(`bit lane create ${lane}`, { cwd: wsdir, shell: "/bin/bash" });
+    execSync(`bit lane create ${laneName}`, { cwd: wsdir, shell: "/bin/bash" });
     execSync('bit snap -m "CI"', { cwd: wsdir, shell: "/bin/bash" });
     execSync("bit export", { cwd: wsdir, shell: "/bin/bash" });
-    // Set the LANE_NAME variable and display the message
-    execSync(`echo "##vso[task.setvariable variable=LANE_NAME]${lane}"`, {
+    // Set the LANE_LINK variable and display the message
+    execSync(`echo "##vso[task.setvariable variable=LANE_LINK]${laneLink}"`, {
       shell: "/bin/bash",
     });
-    const message = `⚠️ Please review the changes in the Bit lane: ${lane}`;
+    const message = `⚠️ Please review the changes in the Bit lane: ${laneLink}`;
     execSync(`echo "##vso[task.logissue type=info]${message}"`, {
       shell: "/bin/bash",
     });

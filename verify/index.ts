@@ -3,7 +3,7 @@ import runScript from "./scripts/verify";
 
 async function run() {
   try {
-    const wsdir: string | undefined =
+    const wsdir: string =
       task.getInput("wsdir", false) || task.getVariable("wsdir") || "./";
     const skipBuild =
       task.getInput("skipbuild")?.toLowerCase() === "true" || false;

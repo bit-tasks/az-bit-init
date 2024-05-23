@@ -15,20 +15,6 @@
     "instanceNameFormat": "Bit Commit Bitmap",
     "inputs": [
         {
-            "name": "gitusername",
-            "type": "string",
-            "label": "Git User Name",
-            "required": true,
-            "helpMarkDown": "Git User Name"
-        },
-        {
-            "name": "gituseremail",
-            "type": "string",
-            "label": "Git User Email",
-            "required": true,
-            "helpMarkDown": "Git User Email"
-        },
-        {
             "name": "wsdir",
             "type": "string",
             "label": "Workspace Directory",

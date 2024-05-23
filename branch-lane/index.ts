@@ -3,7 +3,7 @@ import runScript from "./scripts/branch-lane";
 
 async function run() {
   try {
-    const wsdir: string | undefined =
+    const wsdir: string =
       task.getInput("wsdir", false) || task.getVariable("wsdir") || "./";
     const org = task.getVariable("org");
     const scope = task.getVariable("scope");

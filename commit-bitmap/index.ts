@@ -1,23 +1,62 @@
 import task = require("azure-pipelines-task-lib");
+import { execSync } from "child_process";
 import runScript from "./scripts/commit-bitmap";
 
 async function run() {
   try {
-    const wsdir: string | undefined =
+    const wsdir: string =
       task.getInput("wsdir", false) || task.getVariable("wsdir") || "./";
-    const gitUserName = task.getInput("gitusername");
-    const gitUserEmail = task.getInput("gituseremail");
+    const gitUserName = process.env.GIT_USER_NAME;
+    const gitUserEmail = process.env.GIT_USER_EMAIL;
+    const azureDevOpsPat = process.env.AZURE_DEVOPS_PAT;
     const skipPush = !!task.getInput("skippush") || false;
 
     if (!gitUserName) {
-      task.setResult(task.TaskResult.Failed, "Git user name not found");
-      throw new Error("Git user name not found");
+      task.setResult(
+        task.TaskResult.Failed,
+        "GIT_USER_NAME environment variable is not set for the pipeline"
+      );
+      throw new Error(
+        "GIT_USER_NAME environment variable is not set for the pipeline"
+      );
     }
 
     if (!gitUserEmail) {
-      task.setResult(task.TaskResult.Failed, "Git user email not found");
-      throw new Error("Git user email not found");
+      task.setResult(
+        task.TaskResult.Failed,
+        "GIT_USER_EMAIL environment variable is not set for the pipeline"
+      );
+      throw new Error(
+        "GIT_USER_EMAIL environment variable is not set for the pipeline"
+      );
     }
+
+    if (!azureDevOpsPat) {
+      task.setResult(
+        task.TaskResult.Failed,
+        "AZURE_DEVOPS_PAT environment variable is not set for the pipeline"
+      );
+      throw new Error(
+        "AZURE_DEVOPS_PAT environment variable is not set for the pipeline"
+      );
+    }
+
+    const getRepositoryUrl = (wsdir: string): string => {
+      try {
+        const result = execSync("git config --get remote.origin.url", {
+          cwd: wsdir,
+          encoding: "utf-8",
+        });
+        return result.trim();
+      } catch (error) {
+        throw new Error(
+          `Failed to get repository URL: ${(error as Error).message}`
+        );
+      }
+    };
+
+    // Get the Git repository URL
+    const repositoryUrl = getRepositoryUrl(wsdir);
 
     // Initialize environment variables for bit cli
     process.env.BIT_CONFIG_ANALYTICS_REPORTING = "false";
@@ -26,7 +65,14 @@ async function run() {
     process.env.BIT_DISABLE_CONSOLE = "true";
     process.env.BIT_DISABLE_SPINNER = "true";
 
-    runScript(gitUserName, gitUserEmail, wsdir, skipPush);
+    runScript(
+      gitUserName,
+      gitUserEmail,
+      azureDevOpsPat,
+      repositoryUrl,
+      wsdir,
+      skipPush
+    );
     task.setResult(task.TaskResult.Succeeded, `Commit succesful!`);
   } catch (err: any) {
     task.setResult(task.TaskResult.Failed, err.message);
