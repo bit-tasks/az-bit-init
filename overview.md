@@ -23,11 +23,11 @@ pr:
 pool:
   vmImage: ubuntu-latest
 
-env:
-  GIT_USER_NAME: ${{ secrets.GIT_USER_NAME }}
-  GIT_USER_EMAIL: ${{ secrets.GIT_USER_EMAIL }}
-  AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }} // Need git repository write permission
-  BIT_CLOUD_ACCESS_TOKEN: ${{ secrets.BIT_CLOUD_ACCESS_TOKEN }}
+variables:
+  GIT_USER_NAME: $(GIT_USER_NAME)
+  GIT_USER_EMAIL: $(GIT_USER_EMAIL)
+  AZURE_DEVOPS_PAT: $(AZURE_DEVOPS_PAT) # Need git repository write permission
+  BIT_CLOUD_ACCESS_TOKEN: $(secrets.BIT_CLOUD_ACCESS_TOKEN)
 
 steps:
 - task: bit-init@0
@@ -52,10 +52,10 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  GIT_USER_NAME: ${{ secrets.GIT_USER_NAME }}
-  GIT_USER_EMAIL: ${{ secrets.GIT_USER_EMAIL }}
-  AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }} # Need git repository write permission
-  BIT_CLOUD_ACCESS_TOKEN: ${{ secrets.BIT_CLOUD_ACCESS_TOKEN }}
+  GIT_USER_NAME: $(GIT_USER_NAME)
+  GIT_USER_EMAIL: $(GIT_USER_EMAIL)
+  AZURE_DEVOPS_PAT: $(AZURE_DEVOPS_PAT) # Need git repository write permission
+  BIT_CLOUD_ACCESS_TOKEN: $(secrets.BIT_CLOUD_ACCESS_TOKEN)
 
 steps:
 - task: bit-init@0
@@ -81,10 +81,10 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  GIT_USER_NAME: ${{ secrets.GIT_USER_NAME }}
-  GIT_USER_EMAIL: ${{ secrets.GIT_USER_EMAIL }}
-  AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }} // Need git repository write permission
-  BIT_CLOUD_ACCESS_TOKEN: ${{ secrets.BIT_CLOUD_ACCESS_TOKEN }}
+  GIT_USER_NAME: $(GIT_USER_NAME)
+  GIT_USER_EMAIL: $(GIT_USER_EMAIL)
+  AZURE_DEVOPS_PAT: $(AZURE_DEVOPS_PAT) # Need git repository write permission
+  BIT_CLOUD_ACCESS_TOKEN: $(secrets.BIT_CLOUD_ACCESS_TOKEN)
 
 steps:
 - task: bit-init@0
@@ -111,10 +111,10 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  GIT_USER_NAME: ${{ secrets.GIT_USER_NAME }}
-  GIT_USER_EMAIL: ${{ secrets.GIT_USER_EMAIL }}
-  AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }} # Need git repository write permission
-  BIT_CLOUD_ACCESS_TOKEN: ${{ secrets.BIT_CLOUD_ACCESS_TOKEN }}
+  GIT_USER_NAME: $(GIT_USER_NAME)
+  GIT_USER_EMAIL: $(GIT_USER_EMAIL)
+  AZURE_DEVOPS_PAT: $(AZURE_DEVOPS_PAT) # Need git repository write permission
+  BIT_CLOUD_ACCESS_TOKEN: $(secrets.BIT_CLOUD_ACCESS_TOKEN)
 
 steps:
 - task: bit-init@0
