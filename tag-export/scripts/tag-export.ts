@@ -14,8 +14,9 @@ const createTagMessageText = (): string => {
   }
 
   try {
+    // Use az repos pr list to get the latest completed PR
     const response = execSync(
-      `az repos pr list --organization ${orgUrl} --project ${project} --repository ${repo} --status completed --top 1 --query '[0]' --output json`,
+      `az repos pr list --organization "${orgUrl}" --project "${project}" --repository "${repo}" --status completed --top 1 --query '[0]' --output json`,
       { encoding: "utf-8" }
     );
 
@@ -34,12 +35,13 @@ const createTagMessageText = (): string => {
     if (prTitle) {
       messageText = prTitle;
     } else if (prNumber) {
+      // Use az repos pr show to get the commit message for the PR
       const commitsResponse = execSync(
-        `az repos pr list --organization ${orgUrl} --project ${project} --repository ${repo} --pull-request-id ${prNumber} --top 1 --query '[0]' --output json`,
+        `az repos pr show --organization "${orgUrl}" --project "${project}" --repository "${repo}" --id ${prNumber} --query '[title, description]' --output json`,
         { encoding: "utf-8" }
       );
 
-      const lastCommitMessage = JSON.parse(commitsResponse).comment;
+      const { description: lastCommitMessage } = JSON.parse(commitsResponse);
       tl.debug(`Last commit message: ${lastCommitMessage}`);
 
       messageText = lastCommitMessage;
@@ -84,8 +86,9 @@ function fetchVersionFromLatestCommitPR(): string | null {
   }
 
   try {
+    // Properly quote project and repository names
     const commitResponse = execSync(
-      `az repos commit list --organization ${orgUrl} --project ${project} --repository ${repo} --searchCriteria.itemVersion=GB${branch} --top 1 --query '[0]' --output json`,
+      `az repos commit list --organization "${orgUrl}" --project "${project}" --repository "${repo}" --searchCriteria.itemVersion=GB${branch} --top 1 --query '[0]' --output json`,
       { encoding: "utf-8" }
     );
 
@@ -98,7 +101,7 @@ function fetchVersionFromLatestCommitPR(): string | null {
       tl.debug(`PR Number: ${prNumber}`);
 
       const prResponse = execSync(
-        `az repos pr show --organization ${orgUrl} --project ${project} --repository ${repo} --id ${prNumber} --query '[title, labels]' --output json`,
+        `az repos pr show --organization "${orgUrl}" --project "${project}" --repository "${repo}" --id ${prNumber} --query '[title, labels]' --output json`,
         { encoding: "utf-8" }
       );
 

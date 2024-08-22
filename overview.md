@@ -122,3 +122,28 @@ steps:
     wsdir: './' # Optional
 - task: bit-branch-lane@0
 ```
+
+### Bit Lane Branch (Optional)
+Setup this task if you want to create/update a Git branch based on the component changes on a given Bit lane
+```
+name: Bit Lane Branch
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  GIT_USER_NAME: $(GIT_USER_NAME)
+  GIT_USER_EMAIL: $(GIT_USER_EMAIL)
+  AZURE_DEVOPS_PAT: $(AZURE_DEVOPS_PAT) # Need git repository write permission
+  BIT_CLOUD_ACCESS_TOKEN: $(secrets.BIT_CLOUD_ACCESS_TOKEN)
+
+steps:
+- task: bit-init@0
+  inputs:
+    wsdir: './' # Optional
+- task: bit-lane-branch@0
+  inputs:
+    lanename: 'my-lane-name' # Required
+    branchname: 'my-branch-name' # Optional
+    skippush: 'false' # Optional
+```
