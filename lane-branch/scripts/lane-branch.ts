@@ -17,21 +17,20 @@ const run = async (
   });
 
   // Git operations
-  execSync(`git config --global user.name "${gitUserName}"`, {
-    cwd: wsdir,
-    shell: "/bin/bash",
-  });
-  execSync(`git config --global user.email "${gitUserEmail}"`, {
-    cwd: wsdir,
-    shell: "/bin/bash",
-  });
-
-  execSync(`git checkout -b ${branchName}`, { cwd: wsdir, shell: "/bin/bash" });
-  execSync("git add .", { cwd: wsdir, shell: "/bin/bash" });
-
   try {
+    execSync(`git config --global user.name "${gitUserName}"`, {
+      cwd: wsdir,
+      shell: "/bin/bash",
+    });
+    execSync(`git config --global user.email "${gitUserEmail}"`, {
+      cwd: wsdir,
+      shell: "/bin/bash",
+    });
+  
+    execSync(`git checkout -b ${branchName}`, { cwd: wsdir, shell: "/bin/bash" });
+    execSync("git add .", { cwd: wsdir, shell: "/bin/bash" });
     execSync(
-      `git commit -m "Commiting the latest updates from lane: ${laneName} to the Git branch: ${branchName} (automated) [skip-ci]`,
+      `git commit -m "Commiting the latest updates from lane: ${laneName} to the Git branch: ${branchName} (automated) [skip-ci]"`,
       { cwd: wsdir, shell: "/bin/bash" }
     );
   } catch (error) {
@@ -47,7 +46,7 @@ const run = async (
       shell: "/bin/bash",
     });
   } else {
-    console.log("WARNING - Skipped pushing to GitHub!");
+    console.log("WARNING - Skipped pushing to Git Repository!");
   }
 };
 

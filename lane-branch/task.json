@@ -37,7 +37,7 @@
         },
         {
             "name": "skippush",
-            "type": "string",
+            "type": "boolean",
             "label": "Skip Push Flag",
             "required": false,
             "helpMarkDown": "Skip Push Flag"

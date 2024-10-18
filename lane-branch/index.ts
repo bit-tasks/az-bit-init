@@ -21,8 +21,9 @@ async function run() {
 
     const wsdir: string =
       task.getInput("wsdir", false) || task.getVariable("wsdir") || "./";
-    const skipPush =
-      task.getInput("skippush")?.toLowerCase() === "true" || false;
+    const skipPush: boolean =
+      task.getInput("skippush")?.toLowerCase() === "true";
+
     const laneName = task.getInput("lanename")?.toLowerCase() || "";
     const branchName = task.getInput("branchname")?.toLowerCase() || laneName;
     const gitUserName = process.env.GIT_USER_NAME;
@@ -53,8 +54,8 @@ async function run() {
       throw new Error("Lane name not found");
     }
 
-    if (!branchName) {
-      console.log("Using the lane name as branch name");
+    if (branchName === laneName) {
+      console.log(`Using the lane name "${laneName}" as branch name`);
     }
 
     runScript(laneName, branchName, skipPush, gitUserName, gitUserEmail, wsdir);
