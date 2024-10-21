@@ -1,6 +1,5 @@
 import task = require("azure-pipelines-task-lib");
-import { execSync } from "child_process";
-import runScript from "./scripts/commit-bitmap";
+import runScript from "./scripts/dependency-update";
 
 async function run() {
   try {
@@ -11,18 +10,21 @@ async function run() {
     process.env.BIT_DISABLE_CONSOLE = "true";
     process.env.BIT_DISABLE_SPINNER = "true";
     process.env.BIT_CONFIG_USER_TOKEN =
-      task.getVariable("BIT_CONFIG_USER_TOKEN") ||
-      task.getVariable("BIT_CLOUD_ACCESS_TOKEN");
+    task.getVariable("BIT_CONFIG_USER_TOKEN") ||
+    task.getVariable("BIT_CLOUD_ACCESS_TOKEN");
     process.env.AZURE_DEVOPS_PAT = task.getVariable("AZURE_DEVOPS_PAT");
     process.env.GIT_USER_EMAIL = task.getVariable("GIT_USER_EMAIL");
     process.env.GIT_USER_NAME = task.getVariable("GIT_USER_NAME");
 
     const wsdir: string =
       task.getInput("wsdir", false) || task.getVariable("wsdir") || "./";
+    const skipPush: boolean =
+      task.getInput("skippush")?.toLowerCase() === "true";
+
+    const laneName = task.getInput("lanename")?.toLowerCase() || "";
+    const branchName = task.getInput("branchname")?.toLowerCase() || laneName;
     const gitUserName = process.env.GIT_USER_NAME;
     const gitUserEmail = process.env.GIT_USER_EMAIL;
-    const azureDevOpsPat = process.env.AZURE_DEVOPS_PAT;
-    const skipPush = !!task.getInput("skippush") || false;
 
     if (!gitUserName) {
       task.setResult(
@@ -44,42 +46,20 @@ async function run() {
       );
     }
 
-    if (!azureDevOpsPat) {
-      task.setResult(
-        task.TaskResult.Failed,
-        "AZURE_DEVOPS_PAT environment variable is not set for the pipeline"
-      );
-      throw new Error(
-        "AZURE_DEVOPS_PAT environment variable is not set for the pipeline"
-      );
+    if (!laneName) {
+      task.setResult(task.TaskResult.Failed, "Lane name is not found");
+      throw new Error("Lane name not found");
     }
 
-    const getRepositoryUrl = (wsdir: string): string => {
-      try {
-        const result = execSync("git config --get remote.origin.url", {
-          cwd: wsdir,
-          encoding: "utf-8",
-        });
-        return result.trim();
-      } catch (error) {
-        throw new Error(
-          `Failed to get repository URL: ${(error as Error).message}`
-        );
-      }
-    };
+    if (branchName === laneName) {
+      console.log(`Using the lane name "${laneName}" as branch name`);
+    }
 
-    // Get the Git repository URL
-    const repositoryUrl = getRepositoryUrl(wsdir);
-
-    runScript(
-      gitUserName,
-      gitUserEmail,
-      azureDevOpsPat,
-      repositoryUrl,
-      wsdir,
-      skipPush
+    runScript(laneName, branchName, skipPush, gitUserName, gitUserEmail, wsdir);
+    task.setResult(
+      task.TaskResult.Succeeded,
+      `Successful: Check Branch: ${branchName}`
     );
-    task.setResult(task.TaskResult.Succeeded, `Commit succesful!`);
   } catch (err: any) {
     task.setResult(task.TaskResult.Failed, err.message);
   }

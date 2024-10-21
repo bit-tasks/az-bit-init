@@ -25,6 +25,9 @@ tfx extension publish -t <PERSONAL_ACCESS_TOKEN>
 
 **Note:** --shared-with is needed until the extension is publically shared
 
+#### Creatinga  UUID
+To create a UUID for newly created tasks, you can use `uuidgen` command in Mac.
+
 #### Pre-requisites
 [Cross-platform CLI](https://github.com/microsoft/tfs-cli) for Azure DevOps to package your extensions. You can install tfx-cli by using npm, a component of Node.js, by running;
 

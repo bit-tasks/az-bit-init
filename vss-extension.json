@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "bit-tasks",
     "name": "Bit Tasks",
-    "version": "0.0.47",
+    "version": "0.0.48",
     "publisher": "bitdev",
     "branding": {
         "color": "#060414",
@@ -73,6 +73,12 @@
         },
         {
             "path": "lane-branch"
+        },
+        {
+            "path": "lane-cleanup"
+        },
+        {
+            "path": "dependency-update"
         }
     ],
     "contributions": [
@@ -144,6 +150,26 @@
             ],
             "properties": {
                 "name": "lane-branch"
+            }
+        },
+        {
+            "id": "bit-lane-cleanup",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "lane-cleanup"
+            }
+        },
+        {
+            "id": "bit-dependency-update",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "dependency-update"
             }
         }
     ]

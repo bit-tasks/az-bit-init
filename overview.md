@@ -147,3 +147,58 @@ steps:
     branchname: 'my-branch-name' # Optional
     skippush: 'false' # Optional
 ```
+
+### Bit Lane Cleanup (Optional)
+Setup this task if you want delete or archive a Bit lane. This is typically useful to delete or archive Bit lanes created by the `pull-request` task.
+```
+name: Bit Lane Cleanup
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  GIT_USER_NAME: $(GIT_USER_NAME)
+  GIT_USER_EMAIL: $(GIT_USER_EMAIL)
+  AZURE_DEVOPS_PAT: $(AZURE_DEVOPS_PAT) # Need git repository write permission
+  BIT_CLOUD_ACCESS_TOKEN: $(secrets.BIT_CLOUD_ACCESS_TOKEN)
+
+steps:
+- task: bit-init@0
+  inputs:
+    wsdir: './' # Optional: The working directory for your Bit workspace
+
+- task: bit-lane-cleanup@0
+  inputs:
+    archive: 'false' # Optional: Specify if lanes should be archived instead of deleted (true/false)
+```
+
+### Bit Dependency Update (Optional)
+Setup this task if you want to update component and package versions automatically
+
+```
+name: Bit Dependency Update
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  GIT_USER_NAME: $(GIT_USER_NAME)
+  GIT_USER_EMAIL: $(GIT_USER_EMAIL)
+  AZURE_DEVOPS_PAT: $(AZURE_DEVOPS_PAT) # Need git repository write permission
+  BIT_CLOUD_ACCESS_TOKEN: $(secrets.BIT_CLOUD_ACCESS_TOKEN)
+
+steps:
+- task: bit-init@0
+  inputs:
+    wsdir: './' # Optional: The working directory for your Bit workspace. Default: 'Dir specified in Init Task or ./'
+
+- task: bit-dependency-update@0
+  inputs:
+    wsdir: './' # Optional: The working directory for your Bit workspace. Default: 'Dir specified in Init Task or ./'
+    branch: 'main' # Optional: Branch to check for dependency updates. Default: 'main'
+    allow: 'all' # Optional: Allow different types of dependency updates. Comma-separated options. Default: 'all'. Options: 'external-dependencies', 'workspace-components', 'envs', 'all'
+    version-update-policy: '' # Optional: Defines the version update policy. Default: ''. Options: 'semver', 'minor', 'patch'
+    package-patterns: '' # Optional: A string list of package names or patterns, separated by spaces or commas. Default: All packages are selected
+    component-patterns: '' # Optional: A string list of component names or patterns, separated by spaces or commas. Default: All components are selected
+    env-patterns: '' # Optional: A string list of environment names or patterns, separated by spaces or commas. Default: All environments are selected
+```

@@ -1,5 +1,5 @@
 import task = require("azure-pipelines-task-lib");
-import runScript from "./scripts/pull-request";
+import runScript from "./scripts/lane-cleanup";
 
 async function run() {
   try {
@@ -12,15 +12,14 @@ async function run() {
     process.env.BIT_CONFIG_USER_TOKEN =
     task.getVariable("BIT_CONFIG_USER_TOKEN") ||
     task.getVariable("BIT_CLOUD_ACCESS_TOKEN");
-    process.env.AZURE_DEVOPS_PAT = task.getVariable("AZURE_DEVOPS_PAT");
-    process.env.GIT_USER_EMAIL = task.getVariable("GIT_USER_EMAIL");
-    process.env.GIT_USER_NAME = task.getVariable("GIT_USER_NAME");
 
     const wsdir: string =
       task.getInput("wsdir", false) || task.getVariable("wsdir") || "./";
+    const archive: boolean = task.getInput("archive")?.toLowerCase() === "true";
+    const laneName = task.getInput("lanename")?.toLowerCase() || "";
     const org = task.getVariable("org");
     const scope = task.getVariable("scope");
-    const buildNumber = task.getVariable("Build.BuildId");
+    const bitToken =  process.env.BIT_CONFIG_USER_TOKEN || "";
 
     if (!org) {
       task.setResult(
@@ -38,14 +37,15 @@ async function run() {
       throw new Error("Scope not found");
     }
 
-    const laneName = `build-${buildNumber?.toString()}`;
-    const laneLink = `https://bit.cloud/${org}/${scope}/~lane/${laneName}`;
+    if (!laneName) {
+      task.setResult(task.TaskResult.Failed, "Lane name is not found");
+      throw new Error("Lane name not found");
+    }
 
-    runScript(laneName, laneLink, org, scope, wsdir);
-
+    runScript(laneName, archive, org, scope, bitToken, wsdir);
     task.setResult(
       task.TaskResult.Succeeded,
-      `Successful: Check Lane: ${laneLink}`
+      `Successful: Clean Lane: ${laneName}`
     );
   } catch (err: any) {
     task.setResult(task.TaskResult.Failed, err.message);
