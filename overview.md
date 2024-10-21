@@ -195,7 +195,6 @@ steps:
 - task: bit-dependency-update@0
   inputs:
     wsdir: './' # Optional: The working directory for your Bit workspace. Default: 'Dir specified in Init Task or ./'
-    branch: 'main' # Optional: Branch to check for dependency updates. Default: 'main'
     allow: 'all' # Optional: Allow different types of dependency updates. Comma-separated options. Default: 'all'. Options: 'external-dependencies', 'workspace-components', 'envs', 'all'
     version-update-policy: '' # Optional: Defines the version update policy. Default: ''. Options: 'semver', 'minor', 'patch'
     package-patterns: '' # Optional: A string list of package names or patterns, separated by spaces or commas. Default: All packages are selected
